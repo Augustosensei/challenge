@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 import com.sooft.chanllenge.challenge.dominio.modelo.Empresa;
 import com.sooft.chanllenge.challenge.dominio.puerto.AdherirEmpresaPuerto;
 import com.sooft.chanllenge.challenge.dominio.puerto.ObtenerEmpresasAdheridasPuerto;
-import com.sooft.chanllenge.challenge.infraestructura.persistencia.EmpresaRepositorio;
+import com.sooft.chanllenge.challenge.infraestructura.adaptador.mapper.EmpresaMapper;
+import com.sooft.chanllenge.challenge.infraestructura.persistencia.repositorio.EmpresaRepositorio;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,15 +18,21 @@ import lombok.RequiredArgsConstructor;
 public class EmpresaRepositorioAdapter implements ObtenerEmpresasAdheridasPuerto, AdherirEmpresaPuerto {
 
     private final EmpresaRepositorio empresaRepositorio;
+    private final EmpresaMapper empresaMapper;
 
     @Override
     public List<Empresa> obtenerEmpresasAdheridasUltimoMes() {
-        return empresaRepositorio.findByFechaAdhesionAfter(LocalDate.now().minusMonths(1));
+        LocalDate fechaLimite = LocalDate.now().minusMonths(1);
+
+        return empresaMapper.toDomainList(
+            empresaRepositorio.findByFechaAdhesionAfter(fechaLimite)
+        );
     }
 
     @Override
     public Empresa guardar(Empresa empresa) {
-        return empresaRepositorio.save(empresa);
+        return empresaMapper.toDomain(
+            empresaRepositorio.save(empresaMapper.toEntity(empresa))
+        );
     }
-
 }

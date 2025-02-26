@@ -8,38 +8,38 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import com.sooft.chanllenge.challenge.dominio.modelo.Empresa;
-import com.sooft.chanllenge.challenge.dominio.puerto.ObtenerEmpresasConTransferenciasPuerto;
+import com.sooft.chanllenge.challenge.dominio.puerto.ObtenerEmpresasAdheridasPuerto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ObtenerEmpresasConTransferenciasTest {
+class ObtenerEmpresasAdheridasTest {
 
     @Mock
-    private ObtenerEmpresasConTransferenciasPuerto puerto;
+    private ObtenerEmpresasAdheridasPuerto puerto;
 
     @InjectMocks
-    private ObtenerEmpresasConTransferencias casoUso;
+    private ObtenerEmpresasAdheridas casoUso;
 
     private List<Empresa> empresas;
 
     @BeforeEach
     void setUp() {
-        empresas = List.of(new Empresa());
+        empresas = List.of(new Empresa()); 
     }
 
     @Test
-    void testListarEmpresasConTransferenciasUltimoMes() {
-     
-        when(puerto.obtenerEmpresasConTransferenciasUltimoMes()).thenReturn(empresas);
+    void testListarEmpresasAdheridasUltimoMes() {
+      
+        when(puerto.obtenerEmpresasAdheridasUltimoMes()).thenReturn(empresas);
 
-        List<Empresa> resultado = casoUso.listarEmpresasConTransferenciasUltimoMes();
+        List<Empresa> resultado = casoUso.listarEmpresasAdheridasUltimoMes();
 
         assertThat(resultado)
         .isNotNull()
         .hasSize(1)
         .containsExactlyElementsOf(empresas);
 
-        verify(puerto, times(1)).obtenerEmpresasConTransferenciasUltimoMes();
+        verify(puerto, times(1)).obtenerEmpresasAdheridasUltimoMes();
     }
 }
