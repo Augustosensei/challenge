@@ -29,19 +29,26 @@ public class EmpresaControlador {
         this.obtenerEmpresasAdheridas = obtenerEmpresasAdheridas;
         this.adherirEmpresa = adherirEmpresa;
     }
+    @PostMapping("/crear-empresa")
+    public Empresa adherirEmpresa(@RequestBody Empresa empresa) {
+        return adherirEmpresa.guardarEmpresa(empresa);
+    }
 
-    @GetMapping("/transferencias-ultimo-mes")
+    @GetMapping("/transferenci")
     public List<Empresa> obtenerEmpresasConTransferencias() {
         return obtenerEmpresasConTransferencias.listarEmpresasConTransferenciasUltimoMes();
     }
 
-    @GetMapping("/adhesion-ultimo-mes")
+    @GetMapping("/empresas-adherida-ultimo-mes")
     public List<Empresa> obtenerEmpresasAdheridas() {
         return obtenerEmpresasAdheridas.listarEmpresasAdheridasUltimoMes();
     }
 
+
+
     @PostMapping("/adhesion")
-    public Empresa adherirEmpresa(@RequestBody Empresa empresa) {
+    public Empresa adherirEmpresa2(@RequestBody Empresa empresa) {
         return adherirEmpresa.guardarEmpresa(empresa);
     }
+
 }

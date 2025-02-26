@@ -24,7 +24,7 @@ public class EmpresaEntity {
     private String razonSocial;
     private LocalDate fechaAdhesion;
 
-    @OneToMany(mappedBy = "empresa", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "empresa")
     private List<TransferenciaEntity> transferencias;
 
 }

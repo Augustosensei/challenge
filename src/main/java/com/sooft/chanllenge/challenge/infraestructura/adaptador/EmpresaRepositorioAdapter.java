@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.sooft.chanllenge.challenge.dominio.modelo.Empresa;
 import com.sooft.chanllenge.challenge.dominio.puerto.AdherirEmpresaPuerto;
 import com.sooft.chanllenge.challenge.dominio.puerto.ObtenerEmpresasAdheridasPuerto;
+import com.sooft.chanllenge.challenge.dominio.puerto.ObtenerEmpresasConTransferenciasPuerto;
 import com.sooft.chanllenge.challenge.infraestructura.adaptador.mapper.EmpresaMapper;
 import com.sooft.chanllenge.challenge.infraestructura.persistencia.repositorio.EmpresaRepositorio;
 import com.sooft.chanllenge.challenge.infraestructura.persistencia.repositorio.TransferenciaRepositorio;
@@ -18,13 +19,13 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class EmpresaRepositorioAdapter implements ObtenerEmpresasAdheridasPuerto, AdherirEmpresaPuerto {
+public class EmpresaRepositorioAdapter implements ObtenerEmpresasAdheridasPuerto, AdherirEmpresaPuerto,  ObtenerEmpresasConTransferenciasPuerto {
 
     private final EmpresaMapper empresaMapper;
     private final EmpresaRepositorio empresaRepositorio;
     private final TransferenciaRepositorio transferenciaRepository;
-   
 
+   
     @Override
     @Transactional
     public Empresa guardar(Empresa empresa) {
@@ -32,13 +33,6 @@ public class EmpresaRepositorioAdapter implements ObtenerEmpresasAdheridasPuerto
         EmpresaEntity empresaEntity = empresaMapper.toEntity(empresa);
         
         empresaRepositorio.save(empresaEntity);
- 
-        if (empresaEntity.getTransferencias() != null) {
-            empresaEntity.getTransferencias().forEach(transferenciaEntity -> {
-                transferenciaEntity.setEmpresa(empresaEntity);
-                transferenciaRepository.save(transferenciaEntity);
-            });
-        }
        
         return empresaMapper.toDomain(empresaEntity);
     }
@@ -53,4 +47,19 @@ public class EmpresaRepositorioAdapter implements ObtenerEmpresasAdheridasPuerto
             empresaRepositorio.findByFechaAdhesionAfter(fechaLimite)
         );
     }
+
+
+
+    @Override
+    public List<Empresa> obtenerEmpresasConTransferenciasUltimoMes() {
+        LocalDate fechaLimite = LocalDate.now().minusMonths(1);
+
+        return empresaMapper.toDomainList(
+            empresaRepositorio.findEmpresasConTransferenciasUltimoMes(fechaLimite)
+        );
+    }
+
+
+
+   
 }
