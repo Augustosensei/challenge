@@ -13,7 +13,7 @@ public class AdherirEmpresa {
 
     private final AdherirEmpresaPuerto adherirEmpresa;
 
-    public Empresa ejecutar(Empresa empresa) {
+    public Empresa guardarEmpresa(Empresa empresa) {
         return adherirEmpresa.guardar(empresa);
     }
 

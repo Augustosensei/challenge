@@ -15,7 +15,7 @@ public class ObtenerEmpresasConTransferencias {
 
     private final ObtenerEmpresasConTransferenciasPuerto obtenerEmpresasConTransferencias;
 
-    public List<Empresa> ejecutar() {
+    public List<Empresa> listarEmpresasConTransferenciasUltimoMes() {
         return obtenerEmpresasConTransferencias.obtenerEmpresasConTransferenciasUltimoMes();
     }
 }

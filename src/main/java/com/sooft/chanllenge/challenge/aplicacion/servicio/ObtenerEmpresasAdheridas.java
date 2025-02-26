@@ -15,7 +15,7 @@ public class ObtenerEmpresasAdheridas {
 
     private final ObtenerEmpresasAdheridasPuerto obtenerEmpresasAdheridas;
 
-    public List<Empresa> ejecutar() {
+    public List<Empresa> listarEmpresasAdheridasUltimoMes() {
         return obtenerEmpresasAdheridas.obtenerEmpresasAdheridasUltimoMes();
     }
 
