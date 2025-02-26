@@ -13,10 +13,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ObtenerEmpresasAdheridas {
 
-    private final ObtenerEmpresasAdheridasPuerto obtenerEmpresasAdheridas;
+    private final ObtenerEmpresasAdheridasPuerto obtenerEmpresasAdheridasPuerto;
 
     public List<Empresa> listarEmpresasAdheridasUltimoMes() {
-        return obtenerEmpresasAdheridas.obtenerEmpresasAdheridasUltimoMes();
+        return obtenerEmpresasAdheridasPuerto.obtenerEmpresasAdheridasUltimoMes();
     }
 
 }

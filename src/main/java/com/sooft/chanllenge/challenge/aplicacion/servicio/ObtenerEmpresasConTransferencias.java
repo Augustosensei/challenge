@@ -13,9 +13,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ObtenerEmpresasConTransferencias {
 
-    private final ObtenerEmpresasConTransferenciasPuerto obtenerEmpresasConTransferencias;
+    private final ObtenerEmpresasConTransferenciasPuerto obtenerEmpresasConTransferenciasPuerto;
 
     public List<Empresa> listarEmpresasConTransferenciasUltimoMes() {
-        return obtenerEmpresasConTransferencias.obtenerEmpresasConTransferenciasUltimoMes();
+        return obtenerEmpresasConTransferenciasPuerto.obtenerEmpresasConTransferenciasUltimoMes();
     }
 }

@@ -11,10 +11,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AdherirEmpresa {
 
-    private final AdherirEmpresaPuerto adherirEmpresa;
+    private final AdherirEmpresaPuerto adherirEmpresaPuerto;
 
     public Empresa guardarEmpresa(Empresa empresa) {
-        return adherirEmpresa.guardar(empresa);
+        return adherirEmpresaPuerto.guardar(empresa);
     }
 
 }
