@@ -2,8 +2,8 @@ package com.sooft.chanllenge.challenge.dominio.puerto;
 
 import com.sooft.chanllenge.challenge.dominio.modelo.Transferencia;
 
-public interface CrearTransaccionPuerto {
+public interface CrearTransferenciaPuerto {
 
-    Transferencia crearTransaccion(Transferencia transferencia);
+    Transferencia crearTransferencia(Transferencia transferencia);
 
 }

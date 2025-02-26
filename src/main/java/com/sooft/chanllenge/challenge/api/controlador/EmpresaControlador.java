@@ -13,22 +13,17 @@ import com.sooft.chanllenge.challenge.aplicacion.servicio.ObtenerEmpresasAdherid
 import com.sooft.chanllenge.challenge.aplicacion.servicio.ObtenerEmpresasConTransferencias;
 import com.sooft.chanllenge.challenge.dominio.modelo.Empresa;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/empresas")
+@RequiredArgsConstructor
 public class EmpresaControlador {
 
     private final ObtenerEmpresasConTransferencias obtenerEmpresasConTransferencias;
     private final ObtenerEmpresasAdheridas obtenerEmpresasAdheridas;
     private final AdherirEmpresa adherirEmpresa;
 
-    public EmpresaControlador(
-            ObtenerEmpresasConTransferencias obtenerEmpresasConTransferencias,
-            ObtenerEmpresasAdheridas obtenerEmpresasAdheridas,
-            AdherirEmpresa adherirEmpresa) {
-        this.obtenerEmpresasConTransferencias = obtenerEmpresasConTransferencias;
-        this.obtenerEmpresasAdheridas = obtenerEmpresasAdheridas;
-        this.adherirEmpresa = adherirEmpresa;
-    }
     @PostMapping("/crear-empresa")
     public Empresa adherirEmpresa(@RequestBody Empresa empresa) {
         return adherirEmpresa.guardarEmpresa(empresa);
@@ -43,8 +38,6 @@ public class EmpresaControlador {
     public List<Empresa> obtenerEmpresasAdheridas() {
         return obtenerEmpresasAdheridas.listarEmpresasAdheridasUltimoMes();
     }
-
-
 
     @PostMapping("/adhesion")
     public Empresa adherirEmpresa2(@RequestBody Empresa empresa) {
