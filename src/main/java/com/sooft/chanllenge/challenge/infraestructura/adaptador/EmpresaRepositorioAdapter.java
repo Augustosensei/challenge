@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.sooft.chanllenge.challenge.dominio.modelo.Empresa;
 import com.sooft.chanllenge.challenge.dominio.puerto.AdherirEmpresaPuerto;
-import com.sooft.chanllenge.challenge.dominio.puerto.ObtenerEmpresasAdheridasPuerto;
+import com.sooft.chanllenge.challenge.dominio.puerto.ObtenerEmpresasAdheridasUltimoMesPuerto;
 import com.sooft.chanllenge.challenge.dominio.puerto.ObtenerEmpresasConTransferenciasPuerto;
 import com.sooft.chanllenge.challenge.infraestructura.adaptador.mapper.EmpresaMapper;
 import com.sooft.chanllenge.challenge.infraestructura.persistencia.repositorio.EmpresaRepositorio;
@@ -19,47 +19,43 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class EmpresaRepositorioAdapter implements ObtenerEmpresasAdheridasPuerto, AdherirEmpresaPuerto,  ObtenerEmpresasConTransferenciasPuerto {
+public class EmpresaRepositorioAdapter implements ObtenerEmpresasAdheridasUltimoMesPuerto, AdherirEmpresaPuerto,
+        ObtenerEmpresasConTransferenciasPuerto {
 
     private final EmpresaMapper empresaMapper;
     private final EmpresaRepositorio empresaRepositorio;
     private final TransferenciaRepositorio transferenciaRepository;
 
-   
     @Override
     @Transactional
     public Empresa guardar(Empresa empresa) {
-    
+
         EmpresaEntity empresaEntity = empresaMapper.toEntity(empresa);
-        
+
         empresaRepositorio.save(empresaEntity);
-       
+
         return empresaMapper.toDomain(empresaEntity);
     }
 
-
-    
     @Override
     public List<Empresa> obtenerEmpresasAdheridasUltimoMes() {
+        // LocalDate fechaLimite = LocalDate.now().minusMonths(1);
+
+        // return empresaMapper.toDomainList(
+        // empresaRepositorio.findEmpresasAdheridasUltimoMes(fechaLimite));
+
         LocalDate fechaLimite = LocalDate.now().minusMonths(1);
 
         return empresaMapper.toDomainList(
-            empresaRepositorio.findByFechaAdhesionAfter(fechaLimite)
-        );
+                empresaRepositorio.findEmpresasAdheridasUltimoMes(fechaLimite.getMonthValue(), fechaLimite.getYear()));
     }
-
-
 
     @Override
     public List<Empresa> obtenerEmpresasConTransferenciasUltimoMes() {
         LocalDate fechaLimite = LocalDate.now().minusMonths(1);
 
         return empresaMapper.toDomainList(
-            empresaRepositorio.findEmpresasConTransferenciasUltimoMes(fechaLimite)
-        );
+                empresaRepositorio.findEmpresasConTransferenciasUltimoMes(fechaLimite));
     }
 
-
-
-   
 }

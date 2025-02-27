@@ -3,7 +3,8 @@ package com.sooft.chanllenge.challenge.infraestructura.persistencia.repositorio.
 import java.time.LocalDate;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class EmpresaEntity {
     private String razonSocial;
     private LocalDate fechaAdhesion;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "empresa")
     private List<TransferenciaEntity> transferencias;
 

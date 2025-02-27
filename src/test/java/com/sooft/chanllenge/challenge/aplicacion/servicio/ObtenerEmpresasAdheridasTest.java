@@ -8,7 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import com.sooft.chanllenge.challenge.dominio.modelo.Empresa;
-import com.sooft.chanllenge.challenge.dominio.puerto.ObtenerEmpresasAdheridasPuerto;
+import com.sooft.chanllenge.challenge.dominio.puerto.ObtenerEmpresasAdheridasUltimoMesPuerto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -16,29 +16,29 @@ import static org.mockito.Mockito.*;
 class ObtenerEmpresasAdheridasTest {
 
     @Mock
-    private ObtenerEmpresasAdheridasPuerto puerto;
+    private ObtenerEmpresasAdheridasUltimoMesPuerto puerto;
 
     @InjectMocks
-    private ObtenerEmpresasAdheridas casoUso;
+    private ObtenerEmpresasAdheridasUltimoMes casoUso;
 
     private List<Empresa> empresas;
 
     @BeforeEach
     void setUp() {
-        empresas = List.of(new Empresa()); 
+        empresas = List.of(new Empresa());
     }
 
     @Test
     void testListarEmpresasAdheridasUltimoMes() {
-      
+
         when(puerto.obtenerEmpresasAdheridasUltimoMes()).thenReturn(empresas);
 
         List<Empresa> resultado = casoUso.listarEmpresasAdheridasUltimoMes();
 
         assertThat(resultado)
-        .isNotNull()
-        .hasSize(1)
-        .containsExactlyElementsOf(empresas);
+                .isNotNull()
+                .hasSize(1)
+                .containsExactlyElementsOf(empresas);
 
         verify(puerto, times(1)).obtenerEmpresasAdheridasUltimoMes();
     }

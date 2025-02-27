@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 import com.sooft.chanllenge.challenge.dominio.modelo.Empresa;
 import com.sooft.chanllenge.challenge.infraestructura.persistencia.repositorio.modelo.EmpresaEntity;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = TransferenciaMapper.class)
 public interface EmpresaMapper {
 
     @Mapping(source = "fechaAdhesion", target = "fechaAdhesion")

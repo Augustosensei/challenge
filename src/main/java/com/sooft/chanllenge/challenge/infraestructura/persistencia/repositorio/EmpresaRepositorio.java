@@ -11,12 +11,16 @@ import com.sooft.chanllenge.challenge.infraestructura.persistencia.repositorio.m
 
 public interface EmpresaRepositorio extends JpaRepository<EmpresaEntity, Long> {
 
-   List<EmpresaEntity> findByFechaAdhesionAfter(LocalDate fecha); //obtiene empresas adheridas
+    List<EmpresaEntity> findByFechaAdhesionAfter(LocalDate fecha); // obtiene empresas adheridas
 
-   @Query("SELECT DISTINCT t.empresa FROM TransferenciaEntity t WHERE t.fecha > :fecha")
-   List<EmpresaEntity> findEmpresasConTransferenciasUltimoMes(@Param("fecha") LocalDate fecha);
+    @Query("SELECT e FROM EmpresaEntity e WHERE MONTH(e.fechaAdhesion) = :mes AND YEAR(e.fechaAdhesion) = :anio")
+    List<EmpresaEntity> findEmpresasAdheridasUltimoMes(@Param("mes") int mes, @Param("anio") int anio);
 
-    @Query("SELECT e FROM EmpresaEntity e WHERE e.fechaAdhesion > :fecha")
-    List<EmpresaEntity> findEmpresasAdheridasUltimoMes(@Param("fecha") LocalDate fecha);
+    @Query("SELECT DISTINCT t.empresa FROM TransferenciaEntity t WHERE t.fecha > :fecha")
+    List<EmpresaEntity> findEmpresasConTransferenciasUltimoMes(@Param("fecha") LocalDate fecha);
+
+    // @Query("SELECT e FROM EmpresaEntity e WHERE e.fechaAdhesion > :fecha")
+    // List<EmpresaEntity> findEmpresasAdheridasUltimoMes(@Param("fecha") LocalDate
+    // fecha);
 
 }

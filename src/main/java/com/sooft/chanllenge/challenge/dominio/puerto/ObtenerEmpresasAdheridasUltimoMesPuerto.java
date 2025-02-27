@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sooft.chanllenge.challenge.dominio.modelo.Empresa;
 
-public interface ObtenerEmpresasAdheridasPuerto {
+public interface ObtenerEmpresasAdheridasUltimoMesPuerto {
 
     List<Empresa> obtenerEmpresasAdheridasUltimoMes();
 

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sooft.chanllenge.challenge.aplicacion.servicio.AdherirEmpresa;
-import com.sooft.chanllenge.challenge.aplicacion.servicio.ObtenerEmpresasAdheridas;
+import com.sooft.chanllenge.challenge.aplicacion.servicio.ObtenerEmpresasAdheridasUltimoMes;
 import com.sooft.chanllenge.challenge.aplicacion.servicio.ObtenerEmpresasConTransferencias;
 import com.sooft.chanllenge.challenge.dominio.modelo.Empresa;
 
@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class EmpresaControlador {
 
     private final ObtenerEmpresasConTransferencias obtenerEmpresasConTransferencias;
-    private final ObtenerEmpresasAdheridas obtenerEmpresasAdheridas;
+    private final ObtenerEmpresasAdheridasUltimoMes obtenerEmpresasAdheridas;
     private final AdherirEmpresa adherirEmpresa;
 
     @PostMapping("/crear-empresa")
@@ -29,14 +29,14 @@ public class EmpresaControlador {
         return adherirEmpresa.guardarEmpresa(empresa);
     }
 
+    @GetMapping("/empresas-adherida-ultimo-mes")
+    public List<Empresa> obtenerEmpresasAdheridasUltimoMes() {
+        return obtenerEmpresasAdheridas.listarEmpresasAdheridasUltimoMes();
+    }
+
     @GetMapping("/transferenci")
     public List<Empresa> obtenerEmpresasConTransferencias() {
         return obtenerEmpresasConTransferencias.listarEmpresasConTransferenciasUltimoMes();
-    }
-
-    @GetMapping("/empresas-adherida-ultimo-mes")
-    public List<Empresa> obtenerEmpresasAdheridas() {
-        return obtenerEmpresasAdheridas.listarEmpresasAdheridasUltimoMes();
     }
 
     @PostMapping("/adhesion")

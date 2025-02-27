@@ -5,15 +5,17 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.sooft.chanllenge.challenge.dominio.modelo.Empresa;
-import com.sooft.chanllenge.challenge.dominio.puerto.ObtenerEmpresasAdheridasPuerto;
+import com.sooft.chanllenge.challenge.dominio.puerto.ObtenerEmpresasAdheridasUltimoMesPuerto;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
-public class ObtenerEmpresasAdheridas {
+@Slf4j
+public class ObtenerEmpresasAdheridasUltimoMes {
 
-    private final ObtenerEmpresasAdheridasPuerto obtenerEmpresasAdheridasPuerto;
+    private final ObtenerEmpresasAdheridasUltimoMesPuerto obtenerEmpresasAdheridasPuerto;
 
     public List<Empresa> listarEmpresasAdheridasUltimoMes() {
         return obtenerEmpresasAdheridasPuerto.obtenerEmpresasAdheridasUltimoMes();
