@@ -34,7 +34,7 @@ public class EmpresaControlador {
         return obtenerEmpresasAdheridas.listarEmpresasAdheridasUltimoMes();
     }
 
-    @GetMapping("/transferenci")
+    @GetMapping("/empresas-con-transferencia")
     public List<Empresa> obtenerEmpresasConTransferencias() {
         return obtenerEmpresasConTransferencias.listarEmpresasConTransferenciasUltimoMes();
     }
