@@ -9,6 +9,7 @@ import com.sooft.chanllenge.challenge.dominio.modelo.Empresa;
 import com.sooft.chanllenge.challenge.dominio.puerto.AdherirEmpresaPuerto;
 import com.sooft.chanllenge.challenge.dominio.puerto.ObtenerEmpresasAdheridasUltimoMesPuerto;
 import com.sooft.chanllenge.challenge.dominio.puerto.ObtenerEmpresasConTransferenciasPuerto;
+import com.sooft.chanllenge.challenge.dominio.puerto.ObtenerUltimaEmpreaAdheridaPuerto;
 import com.sooft.chanllenge.challenge.infraestructura.adaptador.mapper.EmpresaMapper;
 import com.sooft.chanllenge.challenge.infraestructura.persistencia.repositorio.EmpresaRepositorio;
 import com.sooft.chanllenge.challenge.infraestructura.persistencia.repositorio.TransferenciaRepositorio;
@@ -20,11 +21,10 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class EmpresaRepositorioAdapter implements ObtenerEmpresasAdheridasUltimoMesPuerto, AdherirEmpresaPuerto,
-        ObtenerEmpresasConTransferenciasPuerto {
+        ObtenerEmpresasConTransferenciasPuerto, ObtenerUltimaEmpreaAdheridaPuerto {
 
     private final EmpresaMapper empresaMapper;
     private final EmpresaRepositorio empresaRepositorio;
-    private final TransferenciaRepositorio transferenciaRepository;
 
     @Override
     @Transactional
@@ -56,5 +56,12 @@ public class EmpresaRepositorioAdapter implements ObtenerEmpresasAdheridasUltimo
                 empresaRepositorio.findEmpresasConTransferenciasUltimoMes(fechaLimite.getMonthValue(),
                         fechaLimite.getYear()));
      }
+
+
+
+    @Override
+    public Empresa ultimaEmpreasAdherida() {
+        return empresaMapper.toDomain(empresaRepositorio.findUltimaEmpresaAdherida());
+    }
 
 }

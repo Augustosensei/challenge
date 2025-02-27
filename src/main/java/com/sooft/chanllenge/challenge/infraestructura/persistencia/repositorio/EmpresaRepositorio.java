@@ -16,12 +16,12 @@ public interface EmpresaRepositorio extends JpaRepository<EmpresaEntity, Long> {
     @Query("SELECT e FROM EmpresaEntity e WHERE MONTH(e.fechaAdhesion) = :mes AND YEAR(e.fechaAdhesion) = :anio")
     List<EmpresaEntity> findEmpresasAdheridasUltimoMes(@Param("mes") int mes, @Param("anio") int anio);
 
-    // @Query("SELECT DISTINCT t.empresa FROM TransferenciaEntity t " +
-    //         "WHERE MONTH(t.fecha) = :mes AND YEAR(t.fecha) = :anio")
-    // List<EmpresaEntity> findEmpresasConTransferenciasUltimoMes(@Param("mes") int mes, @Param("anio") int anio);
-
     @Query("SELECT e FROM EmpresaEntity e WHERE MONTH(e.fechaAdhesion) = :mes AND YEAR(e.fechaAdhesion) = :anio AND e.transferencias IS NOT EMPTY")
     List<EmpresaEntity> findEmpresasConTransferenciasUltimoMes(@Param("mes") int mes, @Param("anio") int anio);
+    
+
+    @Query("SELECT e FROM EmpresaEntity e WHERE e.id = (SELECT MAX(e2.id) FROM EmpresaEntity e2)")
+    EmpresaEntity findUltimaEmpresaAdherida();
     
 
 
