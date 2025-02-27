@@ -48,11 +48,13 @@ public class EmpresaRepositorioAdapter implements ObtenerEmpresasAdheridasUltimo
 
     @Override
     public List<Empresa> obtenerEmpresasConTransferenciasUltimoMes() {
+
+ 
         LocalDate fechaLimite = LocalDate.now().minusMonths(1);
 
         return empresaMapper.toDomainList(
                 empresaRepositorio.findEmpresasConTransferenciasUltimoMes(fechaLimite.getMonthValue(),
                         fechaLimite.getYear()));
-    }
+     }
 
 }

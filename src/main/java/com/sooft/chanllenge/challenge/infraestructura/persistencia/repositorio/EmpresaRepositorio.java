@@ -16,17 +16,13 @@ public interface EmpresaRepositorio extends JpaRepository<EmpresaEntity, Long> {
     @Query("SELECT e FROM EmpresaEntity e WHERE MONTH(e.fechaAdhesion) = :mes AND YEAR(e.fechaAdhesion) = :anio")
     List<EmpresaEntity> findEmpresasAdheridasUltimoMes(@Param("mes") int mes, @Param("anio") int anio);
 
-    @Query("SELECT DISTINCT t.empresa FROM TransferenciaEntity t " +
-            "WHERE MONTH(t.fecha) = :mes AND YEAR(t.fecha) = :anio")
+    // @Query("SELECT DISTINCT t.empresa FROM TransferenciaEntity t " +
+    //         "WHERE MONTH(t.fecha) = :mes AND YEAR(t.fecha) = :anio")
+    // List<EmpresaEntity> findEmpresasConTransferenciasUltimoMes(@Param("mes") int mes, @Param("anio") int anio);
+
+    @Query("SELECT e FROM EmpresaEntity e WHERE MONTH(e.fechaAdhesion) = :mes AND YEAR(e.fechaAdhesion) = :anio AND e.transferencias IS NOT EMPTY")
     List<EmpresaEntity> findEmpresasConTransferenciasUltimoMes(@Param("mes") int mes, @Param("anio") int anio);
+    
 
-    // @Query("SELECT DISTINCT t.empresa FROM TransferenciaEntity t WHERE t.fecha >
-    // :fecha")
-    // List<EmpresaEntity> findEmpresasConTransferenciasUltimoMes(@Param("fecha")
-    // LocalDate fecha);
-
-    // @Query("SELECT e FROM EmpresaEntity e WHERE e.fechaAdhesion > :fecha")
-    // List<EmpresaEntity> findEmpresasAdheridasUltimoMes(@Param("fecha") LocalDate
-    // fecha);
 
 }
